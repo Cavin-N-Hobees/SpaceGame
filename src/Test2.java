@@ -41,7 +41,21 @@ public class Test2 extends Application {
         	System.out.println("Something else was pressed");
       }
     });
-    
+
+    spaceship.setOnKeyReleased((e -> {
+        switch (e.getCode()) {
+        case DOWN:
+        	break;
+        case UP:
+        	spaceship.setMoveForward(false); break;
+        case LEFT: 
+        	spaceship.setMoveLeft(false);break;
+        case RIGHT: 
+        	spaceship.setMoveRight(false);break;
+        default: 
+        	System.out.println("Something else was pressed");
+      }
+    }));
     
     spaceship.setFocusTraversable(true);
     

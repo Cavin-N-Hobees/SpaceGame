@@ -31,6 +31,18 @@ public class SpaceShip extends ImageView{
       }
     }
 	
+	public void handleKeyDown(KeyEvent e) {
+		System.out.println("handleKeyEvent was called");
+        switch (e.getCode()) {
+        case UP:     
+        moveForward = false;
+        break;
+        case LEFT: moveLeft = false; break;
+        case RIGHT: moveRight = false; break;
+        default: break;
+      }
+    }
+	
 	
 	public boolean isMoveForward() {
 		return moveForward;
@@ -57,14 +69,14 @@ public class SpaceShip extends ImageView{
 	    	double disY;
 			 disX = Math.cos(((getRotate() - 90) * Math.PI) / 180); // changes disX to be used for the calculations on line 20
 		        disY = Math.sin(((getRotate() - 90) * Math.PI) / 180); // changes disY to be used for the calculations on line 21
-		        setX(getX() + disX); // calculates how far the boat should move on the x-axis
-		        setY(getY() + disY);
+		        setX(getX() + disX * 2); // calculates how far the boat should move on the x-axis
+		        setY(getY() + disY * 2);
 		}
 		if (moveRight) {
-			setRotate(getRotate() + 1.5);
+			setRotate(getRotate() + 3.5);
 		}
 		if (moveLeft) {
-			setRotate(getRotate() - 1.5);
+			setRotate(getRotate() - 3.5);
 		}
 	}
 	}
