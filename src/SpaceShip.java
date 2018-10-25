@@ -7,6 +7,9 @@ public class SpaceShip extends ImageView{
 	private boolean moveForward;
 	private boolean moveRight;
 	private boolean moveLeft;
+	private boolean moveBackward;
+	private double xForce;
+	private double yForce;
 	public SpaceShip(Image shipSprite,float x, float y) {
 		super(shipSprite);
 		setX(x);
@@ -62,15 +65,41 @@ public class SpaceShip extends ImageView{
 	public void setMoveLeft(boolean moveLeft) {
 		this.moveLeft = moveLeft;
 	}
+	
+	public void setMoveBackward(boolean moveBack) {
+		this.moveBackward = moveBack;
+	}
+	public boolean isMoveBackward() {
+		return moveBackward;
+	}
+	
 	public void moveShip() {
-//		System.out.println("Move ship was called");
+		if (moveBackward) {
+			xForce -= Math.cos(((getRotate() - 90) * Math.PI) / 180); // changes disX to be used for the calculations on line 20
+		    yForce -= Math.sin(((getRotate() - 90) * Math.PI) / 180); // changes disY to be used for the calculations on line 21
+		     
+		}
+
+
+	     setX(getX() + xForce); // calculates how far the boat should move on the x-axis
+	     setY(getY() + yForce);
+
 		if (moveForward) {
-			double disX;
-	    	double disY;
-			 disX = Math.cos(((getRotate() - 90) * Math.PI) / 180); // changes disX to be used for the calculations on line 20
-		        disY = Math.sin(((getRotate() - 90) * Math.PI) / 180); // changes disY to be used for the calculations on line 21
-		        setX(getX() + disX * 2); // calculates how far the boat should move on the x-axis
-		        setY(getY() + disY * 2);
+//			double disX;
+//	    	double disY;
+//			 disX = Math.cos(((getRotate() - 90) * Math.PI) / 180); // changes disX to be used for the calculations on line 20
+//		     disY = Math.sin(((getRotate() - 90) * Math.PI) / 180); // changes disY to be used for the calculations on line 21
+			 xForce += Math.cos(((getRotate() - 90) * Math.PI) / 180); // changes disX to be used for the calculations on line 20
+		     yForce += Math.sin(((getRotate() - 90) * Math.PI) / 180); // changes disY to be used for the calculations on line 21
+		     
+
+			//if(xForce < 40)
+			//	xForce += disX;
+		    //if(yForce < 40) 
+		    //	yForce += disY;
+		    
+//		     setX(getX() + xForce); // calculates how far the boat should move on the x-axis
+//		     setY(getY() + yForce);
 		}
 		if (moveRight) {
 			setRotate(getRotate() + 3.5);
@@ -78,5 +107,6 @@ public class SpaceShip extends ImageView{
 		if (moveLeft) {
 			setRotate(getRotate() - 3.5);
 		}
+		
 	}
 	}

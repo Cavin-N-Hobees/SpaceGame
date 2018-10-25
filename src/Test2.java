@@ -30,6 +30,7 @@ public class Test2 extends Application {
     spaceship.setOnKeyPressed(e -> {
         switch (e.getCode()) {
         case DOWN:
+        	spaceship.setMoveBackward(true);
         	break;
         case UP:
         	spaceship.setMoveForward(true); break;
@@ -45,6 +46,7 @@ public class Test2 extends Application {
     spaceship.setOnKeyReleased((e -> {
         switch (e.getCode()) {
         case DOWN:
+        	spaceship.setMoveBackward(false);
         	break;
         case UP:
         	spaceship.setMoveForward(false); break;
