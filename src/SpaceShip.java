@@ -87,10 +87,10 @@ public class SpaceShip extends ImageView{
 		if (moveForward) {
 //			double disX;
 //	    	double disY;
-//			 disX = Math.cos(((getRotate() - 90) * Math.PI) / 180); // changes disX to be used for the calculations on line 20
-//		     disY = Math.sin(((getRotate() - 90) * Math.PI) / 180); // changes disY to be used for the calculations on line 21
-			 xForce += Math.cos(((getRotate() - 90) * Math.PI) / 180); // changes disX to be used for the calculations on line 20
-		     yForce += Math.sin(((getRotate() - 90) * Math.PI) / 180); // changes disY to be used for the calculations on line 21
+//			 disX = Math.cos(((getRotate() - 90) * Math.PI) / 180);
+//		     disY = Math.sin(((getRotate() - 90) * Math.PI) / 180); 
+			 xForce += Math.cos(((getRotate() - 90) * Math.PI) / 180); 
+		     yForce += Math.sin(((getRotate() - 90) * Math.PI) / 180); 
 		     
 
 			//if(xForce < 40)
