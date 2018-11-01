@@ -11,11 +11,12 @@ public class Test2 extends Application {
   @Override
   public void start(Stage primaryStage) {     
     Pane pane = new Pane();
-    
     SpaceShip spaceship = new SpaceShip(new Image("Spaceship.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2);
     //circle.xProperty().bind(pane.widthProperty().divide(2));
     //circle.yProperty().bind(pane.heightProperty().divide(2));
-    pane.getChildren().add(spaceship); // Add circle to the pane
+    pane.getChildren().add(spaceship);
+    spaceship.setScaleX(spaceship.getScaleX() * 2);
+    spaceship.setScaleY(spaceship.getScaleY() * 2);
     
     Timeline animation = new Timeline(
             new KeyFrame(Duration.millis(50), (e -> {
@@ -25,6 +26,7 @@ public class Test2 extends Application {
     spaceship.setOnKeyPressed(e -> {
         switch (e.getCode()) {
         case DOWN:
+        	spaceship.setMoveBackward(true);
         	break;
         case UP:
         	spaceship.setMoveForward(true); break;
@@ -40,6 +42,7 @@ public class Test2 extends Application {
     spaceship.setOnKeyReleased((e -> {
         switch (e.getCode()) {
         case DOWN:
+        	spaceship.setMoveBackward(false);
         	break;
         case UP:
         	spaceship.setMoveForward(false); break;
