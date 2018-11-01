@@ -26,6 +26,9 @@ public class SpaceShip extends ImageView{
 	public void handleKeyUp(KeyEvent e) {
 		System.out.println("handleKeyEvent was called");
         switch (e.getCode()) {
+        case DOWN:
+        	moveBackward = true;
+        	break;
         case UP:     
         moveForward = true;
         break;
@@ -38,6 +41,9 @@ public class SpaceShip extends ImageView{
 	public void handleKeyDown(KeyEvent e) {
 		System.out.println("handleKeyEvent was called");
         switch (e.getCode()) {
+        case DOWN:
+        	moveBackward = false;
+        	break;
         case UP:     
         moveForward = false;
         break;
@@ -76,9 +82,9 @@ public class SpaceShip extends ImageView{
 	
 	public void moveShip() {
 		if (moveBackward) {
-			xForce -= Math.cos(((getRotate() - 90) * Math.PI) / 180); // changes disX to be used for the calculations on line 20
-		    yForce -= Math.sin(((getRotate() - 90) * Math.PI) / 180); // changes disY to be used for the calculations on line 21
-		     
+			xForce = Math.cos(((getRotate() - 90) * Math.PI) / 180) * 0.99; // changes disX to be used for the calculations on line 20
+		    yForce = Math.sin(((getRotate() - 90) * Math.PI) / 180) * 0.99; // changes disY to be used for the calculations on line 21
+		     //speed -= 0.1;
 		}
 
 
