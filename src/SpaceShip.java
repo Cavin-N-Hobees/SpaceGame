@@ -10,6 +10,7 @@ public class SpaceShip extends ImageView{
 	private boolean moveBackward;
 	private double xForce;
 	private double yForce;
+	// Comment so I can commit again
 	public SpaceShip(Image shipSprite,float x, float y) {
 		super(shipSprite);
 		setX(x);
