@@ -34,6 +34,9 @@ public class Test2 extends Application {
         	spaceship.setMoveLeft(true);break;
         case RIGHT: 
         	spaceship.setMoveRight(true);break;
+        case SPACE:
+        	spaceship.fireBullet(pane);
+        	break;
         default: 
         	System.out.println("Something else was pressed");
       }
