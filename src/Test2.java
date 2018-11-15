@@ -13,13 +13,19 @@ public class Test2 extends Application {
   public void start(Stage primaryStage) {     
     Pane pane = new Pane();
     ArrayList<MoveableObject> moveableObjects = new ArrayList<>();
-    SpaceShip spaceship = new SpaceShip(new Image("Spaceship.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2);
-    //circle.xProperty().bind(pane.widthProperty().divide(2));
+    PlayerSpaceship spaceship = new PlayerSpaceship(new Image("Spaceship.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2);
+    KamikazeShip enemyship = new KamikazeShip(new Image("Alien.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2, spaceship);
+    
     moveableObjects.add(spaceship);
-    //circle.yProperty().bind(pane.heightProperty().divide(2));
     pane.getChildren().add(spaceship);
     spaceship.setScaleX(spaceship.getScaleX() * 2);
     spaceship.setScaleY(spaceship.getScaleY() * 2);
+    
+    moveableObjects.add(enemyship);
+    pane.getChildren().add(enemyship);
+    enemyship.setScaleX(enemyship.getScaleX() * 2);
+    enemyship.setScaleY(enemyship.getScaleY() * 2);
+    
     
     Timeline animation = new Timeline(
             new KeyFrame(Duration.millis(50), (e -> {

@@ -1,4 +1,7 @@
+import javafx.scene.image.Image;
 
-public class PlayerSpaceship {
-
+public class PlayerSpaceship extends SpaceShip{
+	public PlayerSpaceship(Image shipSprite,float x, float y) {
+		super(shipSprite,x, y);
+	}
 }
