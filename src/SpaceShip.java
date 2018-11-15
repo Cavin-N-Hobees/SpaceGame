@@ -11,7 +11,7 @@ public class SpaceShip extends MoveableObject{
 	}
 	
 	public Bullet fireBullet() {
-		System.out.println("Fire bullet called");
+		//System.out.println("Fire bullet called");
 		Bullet bullet = new Bullet(new Image("PlayerBullet.png"), (float) this.getX(), (float) this.getY());
 		bullet.setRotate(this.getRotate());
 		return bullet;

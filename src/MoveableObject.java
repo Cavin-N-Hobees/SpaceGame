@@ -1,7 +1,4 @@
 import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
-//import javafx.scene.input.KeyEvent;
-
 public class MoveableObject extends SpaceObject{
 	float speed = 1;
 	private boolean moveForward;
@@ -10,7 +7,6 @@ public class MoveableObject extends SpaceObject{
 	private boolean moveBackward;
 	private double xForce;
 	private double yForce;
-	// Comment so I can commit again
 	public MoveableObject(Image shipSprite,float x, float y) {
 		super(shipSprite, x,y);
 	}
@@ -18,41 +14,18 @@ public class MoveableObject extends SpaceObject{
 		super(shipSprite, x,y);
 		this.speed = speed;
 	}
-	
-	/*public void handleKeyUp(KeyEvent e) {
-		System.out.println("handleKeyEvent was called");
-        switch (e.getCode()) {
-        case DOWN:
-        	moveBackward = true;
-        	break;
-        case UP:     
-        moveForward = true;
-        break;
-        case LEFT: moveLeft = true; break;
-        case RIGHT: moveRight = true; break;
-        default: break;
-      }
-    }
-	
-	public void handleKeyDown(KeyEvent e) {
-		System.out.println("handleKeyEvent was called");
-        switch (e.getCode()) {
-        case DOWN:
-        	moveBackward = false;
-        	break;
-        case UP:     
-        moveForward = false;
-        break;
-        case LEFT: moveLeft = false; break;
-        case RIGHT: moveRight = false; break;
-        default: break;
-      }
-    }*/
-	
-	
 	public boolean isMoveForward() {
 		return moveForward;
 	}
+	
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+	
+	public float getSpeed() {
+		return speed;
+	}
+	
 	public void setMoveForward(boolean moveForward) {
 		this.moveForward = moveForward;
 	}
@@ -76,6 +49,22 @@ public class MoveableObject extends SpaceObject{
 		return moveBackward;
 	}
 	
+	public void setXForce(double xforce) {
+		this.xForce = xforce;
+	}
+	
+	public double getXForce() {
+		return xForce;
+	}
+	
+	public void setYForce(double yforce) {
+		this.yForce = yforce;
+	}
+	
+	public double getYForce() {
+		return yForce;
+	}
+	
 	public void move() {
 		if (moveBackward) {
 			xForce = Math.cos(((getRotate() - 90) * Math.PI) / 180) * 0.99;
@@ -88,21 +77,9 @@ public class MoveableObject extends SpaceObject{
 	     setY(getY() + yForce);
 
 		if (moveForward) {
-//			double disX;
-//	    	double disY;
-//			 disX = Math.cos(((getRotate() - 90) * Math.PI) / 180);
-//		     disY = Math.sin(((getRotate() - 90) * Math.PI) / 180); 
-			 xForce += Math.cos(((getRotate() - 90) * Math.PI) / 180); 
-		     yForce += Math.sin(((getRotate() - 90) * Math.PI) / 180); 
-		     
+			xForce += Math.cos(((getRotate() - 90) * Math.PI) / 180); 
+		    yForce += Math.sin(((getRotate() - 90) * Math.PI) / 180); 
 
-			//if(xForce < 40)
-			//	xForce += disX;
-		    //if(yForce < 40) 
-		    //	yForce += disY;
-		    
-//		     setX(getX() + xForce); // calculates how far the boat should move on the x-axis
-//		     setY(getY() + yForce);
 		}
 		if (moveRight) {
 			setRotate(getRotate() + 3.5);
