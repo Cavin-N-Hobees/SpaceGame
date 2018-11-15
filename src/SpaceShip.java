@@ -10,8 +10,10 @@ public class SpaceShip extends MoveableObject{
 		super(shipSprite, x,y,speed);
 	}
 	
-	public void fireBullet(Pane pane) {
+	public Bullet fireBullet() {
 		System.out.println("Fire bullet called");
-		pane.getChildren().add(new Bullet(new Image("PlayerBullet.png"), (float) this.getX(), (float) this.getY()));
+		Bullet bullet = new Bullet(new Image("PlayerBullet.png"), (float) this.getX(), (float) this.getY());
+		bullet.setRotate(this.getRotate());
+		return bullet;
 	}
 }

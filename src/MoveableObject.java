@@ -76,10 +76,10 @@ public class MoveableObject extends SpaceObject{
 		return moveBackward;
 	}
 	
-	public void moveShip() {
+	public void move() {
 		if (moveBackward) {
-			xForce = Math.cos(((getRotate() - 90) * Math.PI) / 180) * 0.99; // changes disX to be used for the calculations on line 20
-		    yForce = Math.sin(((getRotate() - 90) * Math.PI) / 180) * 0.99; // changes disY to be used for the calculations on line 21
+			xForce = Math.cos(((getRotate() - 90) * Math.PI) / 180) * 0.99;
+		    yForce = Math.sin(((getRotate() - 90) * Math.PI) / 180) * 0.99;
 		     //speed -= 0.1;
 		}
 

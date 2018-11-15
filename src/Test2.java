@@ -6,13 +6,16 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import java.util.ArrayList;
 
 public class Test2 extends Application {
   @Override
   public void start(Stage primaryStage) {     
     Pane pane = new Pane();
+    ArrayList<MoveableObject> moveableObjects = new ArrayList<>();
     SpaceShip spaceship = new SpaceShip(new Image("Spaceship.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2);
     //circle.xProperty().bind(pane.widthProperty().divide(2));
+    moveableObjects.add(spaceship);
     //circle.yProperty().bind(pane.heightProperty().divide(2));
     pane.getChildren().add(spaceship);
     spaceship.setScaleX(spaceship.getScaleX() * 2);
@@ -20,7 +23,9 @@ public class Test2 extends Application {
     
     Timeline animation = new Timeline(
             new KeyFrame(Duration.millis(50), (e -> {
-            	spaceship.moveShip();
+            	for(MoveableObject obj:moveableObjects) {
+            		obj.move();
+            	}
             })));
     
     spaceship.setOnKeyPressed(e -> {
@@ -35,7 +40,10 @@ public class Test2 extends Application {
         case RIGHT: 
         	spaceship.setMoveRight(true);break;
         case SPACE:
-        	spaceship.fireBullet(pane);
+        	Bullet bullet = spaceship.fireBullet();
+        	pane.getChildren().add(bullet);
+        	moveableObjects.add(bullet);
+        	
         	break;
         default: 
         	System.out.println("Something else was pressed");
