@@ -37,6 +37,12 @@ public class Test2 extends Application {
     pane.getChildren().add(bigShip);
     moveableObjects.add(bigShip);
     
+    Turrent turrent1 = bigShip.addTurrent();
+    turrent1.setPlayer(spaceship);
+    enemyShips.add(turrent1);
+    pane.getChildren().add(turrent1);
+    moveableObjects.add(turrent1);
+    
     Timeline animation = new Timeline(
             new KeyFrame(Duration.millis(50), (e -> {
         		Iterator<Bullet> bulletIterator = bulletList.iterator();
@@ -136,10 +142,20 @@ public class Test2 extends Application {
                   // object as opposed to one hitting many objects.
                   // To be more accurate comment out the break statement.
                   //break;
-            	  System.out.println("Collidion occured");
+            	  System.out.println("Collision occured");
+            	  bullet.setNeedsDestroyed(true);
+            	  enemy.setNeedsDestroyed(true);
               }
           }
       }
+      
+     Iterator<Bullet> bulletIterator = playerBullets.iterator();
+  	while(bulletIterator.hasNext()) {
+  		if(bulletIterator.next().needsDestroyed()) {
+  			
+  		}
+  	}
+      
   }
   
   /**

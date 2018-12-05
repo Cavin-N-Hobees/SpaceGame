@@ -17,6 +17,7 @@ public class SpaceShip extends MoveableObject{
 		return bullet;
 	}
 	
+	
 	public int getTimePassed() {
 		return this.timePassed;
 	}

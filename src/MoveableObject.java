@@ -21,6 +21,7 @@ public class MoveableObject extends SpaceObject{
 		collisionBounds = new Circle(x, x, 10);
 		this.speed = speed;
 	}
+	
 	public boolean isMoveForward() {
 		return moveForward;
 	}
