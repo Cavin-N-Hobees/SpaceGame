@@ -1,4 +1,7 @@
 import javafx.scene.image.Image;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 public class MoveableObject extends SpaceObject{
 	float speed = 1;
 	private boolean moveForward;
@@ -7,11 +10,15 @@ public class MoveableObject extends SpaceObject{
 	private boolean moveBackward;
 	private double xForce;
 	private double yForce;
+	private Circle collisionBounds;
 	public MoveableObject(Image shipSprite,float x, float y) {
-		super(shipSprite, x,y);
+		this(shipSprite,x,y,1);
+		//collisionBounds = new Rectangle(x, y, .1, 1);
+		
 	}
 	public MoveableObject(Image shipSprite,float x, float y,float speed) {
 		super(shipSprite, x,y);
+		collisionBounds = new Circle(x, x, 10);
 		this.speed = speed;
 	}
 	public boolean isMoveForward() {
@@ -64,6 +71,9 @@ public class MoveableObject extends SpaceObject{
 	public double getYForce() {
 		return yForce;
 	}
+	public Circle getCollisionBounds() {
+		return collisionBounds;
+	}
 	
 	public void move() {
 		if (moveBackward) {
@@ -88,5 +98,10 @@ public class MoveableObject extends SpaceObject{
 			setRotate(getRotate() - 3.5);
 		}
 		
+		//collisionBounds.setX(this.getX());
+		collisionBounds.setCenterX(this.getX());
+		collisionBounds.setCenterY(this.getY());
+		//collisionBounds.setY(this.getY());
+		//collisionBounds.setRotate(this.getRotate());
 	}
 	}

@@ -4,9 +4,10 @@ public class PlayerSpaceship extends SpaceShip{
 	public PlayerSpaceship(Image shipSprite,float x, float y) {
 		super(shipSprite,x, y);
 	}
-	/*@Override
+	@Override
 	public void move() {
-		if (this.isMoveBackward()) {
+		super.move();
+		/*if (this.isMoveBackward()) {
 			this.setXForce(Math.cos(((getRotate() - 90) * Math.PI) / 180) * 0.99);
 		    this.setYForce(Math.sin(((getRotate() - 90) * Math.PI) / 180) * 0.99);
 		     //speed -= 0.1;
@@ -19,8 +20,6 @@ public class PlayerSpaceship extends SpaceShip{
 		if (this.isMoveForward()) {
 			this.setXForce(this.getXForce() + Math.cos(((getRotate() - 90) * Math.PI) / 180)); 
 			this.setYForce(this.getYForce() + Math.cos(((getRotate() - 90) * Math.PI) / 180)); 
-		}
-		
-		
-	}*/
+		}*/
+	}
 }

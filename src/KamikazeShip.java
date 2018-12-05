@@ -7,6 +7,7 @@ public class KamikazeShip extends SpaceShip{
 		this.player = player;
 		super.setMoveForward(true);
 	}
+	
 	@Override
 	public void move() {
 		//shark.rotation = ((360 / (2 * Math.PI)) * Math.atan2(((BoatY - shark.y)), (BoatX - shark.x))) + 90;
