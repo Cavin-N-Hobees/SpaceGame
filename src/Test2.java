@@ -19,18 +19,23 @@ public class Test2 extends Application {
     PlayerSpaceship spaceship = new PlayerSpaceship(new Image("Spaceship.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2);
     KamikazeShip enemyship = new KamikazeShip(new Image("Alien.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2, spaceship);
     moveableObjects.add(spaceship);
-    
     ArrayList<SpaceShip> enemyShips = new ArrayList<>();
-
+    ArrayList<Bullet> bulletList = new ArrayList<>();
+    
+    enemyShips.add(enemyship);
     pane.getChildren().add(spaceship);
     spaceship.setScaleX(spaceship.getScaleX() * 2);
     spaceship.setScaleY(spaceship.getScaleY() * 2);
-    ArrayList<Bullet> bulletList = new ArrayList<>();
     moveableObjects.add(enemyship);
     pane.getChildren().add(enemyship);
     enemyship.setScaleX(enemyship.getScaleX() * 2);
     enemyship.setScaleY(enemyship.getScaleY() * 2);
     enemyShips.add(enemyship);
+    
+    STEAS bigShip = new STEAS(new Image("STEAS(1).png"),10,10,spaceship);
+    enemyShips.add(bigShip);
+    pane.getChildren().add(bigShip);
+    moveableObjects.add(bigShip);
     
     Timeline animation = new Timeline(
             new KeyFrame(Duration.millis(50), (e -> {
