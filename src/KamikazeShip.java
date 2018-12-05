@@ -3,7 +3,7 @@ import javafx.scene.image.Image;
 public class KamikazeShip extends SpaceShip{
 	private PlayerSpaceship player;
 	public KamikazeShip(Image shipSprite,float x, float y, PlayerSpaceship player) {
-		super(shipSprite, x,y,0.5f);
+		super(shipSprite, x,y,1);
 		this.player = player;
 		super.setMoveForward(true);
 	}
