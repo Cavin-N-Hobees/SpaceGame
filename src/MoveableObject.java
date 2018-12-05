@@ -18,7 +18,7 @@ public class MoveableObject extends SpaceObject{
 	}
 	public MoveableObject(Image shipSprite,float x, float y,float speed) {
 		super(shipSprite, x,y);
-		collisionBounds = new Circle(x, x, .5);
+		collisionBounds = new Circle(x, x, 10);
 		this.speed = speed;
 	}
 	public boolean isMoveForward() {
