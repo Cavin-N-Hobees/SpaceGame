@@ -1,6 +1,6 @@
 import javafx.scene.image.Image;
 
-public class Turrent extends SpaceShip{
+public class Turrent extends SpaceShip {//implements Shooter{
 	private PlayerSpaceship player;
 	private STEAS parentShip;
 	public Turrent(Image shipSprite,float x, float y, STEAS parentShip) {
@@ -17,5 +17,9 @@ public class Turrent extends SpaceShip{
 	}
 	public void setPlayer(PlayerSpaceship player) {
 		this.player = player;
+	}
+	
+	public void checkForShoot() {
+		
 	}
 }
