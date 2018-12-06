@@ -9,19 +9,19 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Test2 extends Application {
+public class Game extends Application {
 	private boolean playerShoot = false;
 	private int timePassed = 0;
+	private Pane pane = new Pane();
+	private ArrayList<MoveableObject> moveableObjects = new ArrayList<>();
+    private PlayerSpaceship spaceship = new PlayerSpaceship(new Image("Spaceship.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2);
+    private KamikazeShip enemyship = new KamikazeShip(new Image("Alien.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2, spaceship);
+    private ArrayList<SpaceShip> enemyShips = new ArrayList<>();
+    private ArrayList<Bullet> bulletList = new ArrayList<>();
+    
   @Override
   public void start(Stage primaryStage) {     
-    Pane pane = new Pane();
-    ArrayList<MoveableObject> moveableObjects = new ArrayList<>();
-    PlayerSpaceship spaceship = new PlayerSpaceship(new Image("Spaceship.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2);
-    KamikazeShip enemyship = new KamikazeShip(new Image("Alien.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2, spaceship);
-    moveableObjects.add(spaceship);
-    ArrayList<SpaceShip> enemyShips = new ArrayList<>();
-    ArrayList<Bullet> bulletList = new ArrayList<>();
-    
+   moveableObjects.add(spaceship);
     enemyShips.add(enemyship);
     pane.getChildren().add(spaceship);
     spaceship.setScaleX(spaceship.getScaleX() * 2);
@@ -152,7 +152,7 @@ public class Test2 extends Application {
      Iterator<Bullet> bulletIterator = playerBullets.iterator();
   	while(bulletIterator.hasNext()) {
   		if(bulletIterator.next().needsDestroyed()) {
-  			
+  			pane.getChildren().remove(bulletIterator.next());
   		}
   	}
       
