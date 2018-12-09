@@ -6,6 +6,7 @@ public class STEAS extends SpaceShip{
 		super(shipSprite, x,y,3.1f);
 		super.setMoveForward(true);
 		this.player = player;
+		this.setHitPoints(100);
 	}
 	
 	@Override

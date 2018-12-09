@@ -45,6 +45,7 @@ public class Game extends Application {
     
     Timeline animation = new Timeline(
             new KeyFrame(Duration.millis(50), (e -> {
+            	
         		Iterator<Bullet> bulletIterator = bulletList.iterator();
             	while( bulletIterator.hasNext()) {
             		Bullet bullet = bulletIterator.next();
@@ -65,9 +66,21 @@ public class Game extends Application {
             		bulletList.add(bullet);
             		moveableObjects.add(bullet);
             		pane.getChildren().add(bullet);
-            		//timePassed = 0;
             	}
-            	//timePassed++;
+            
+            	Iterator<MoveableObject> objectIterator = moveableObjects.iterator();
+              	while(objectIterator.hasNext()) {
+              		MoveableObject temp = objectIterator.next();
+              		if(temp.needsDestroyed()) {
+              			pane.getChildren().remove(temp);
+              			moveableObjects.remove(temp);
+              			if(bulletList.contains(temp))
+              				bulletList.remove(temp);
+              			if(enemyShips.contains(temp))
+              				enemyShips.remove(temp);
+              		}
+              	}
+              	
             })));
     
     spaceship.setOnKeyPressed(e -> {
@@ -141,20 +154,11 @@ public class Game extends Application {
                   //  The break statement means one object only hits another
                   // object as opposed to one hitting many objects.
                   // To be more accurate comment out the break statement.
-                  //break;
-            	  System.out.println("Collision occured");
-            	  bullet.setNeedsDestroyed(true);
-            	  enemy.setNeedsDestroyed(true);
+                  break;
               }
           }
       }
-      
-     Iterator<Bullet> bulletIterator = playerBullets.iterator();
-  	while(bulletIterator.hasNext()) {
-  		if(bulletIterator.next().needsDestroyed()) {
-  			pane.getChildren().remove(bulletIterator.next());
-  		}
-  	}
+
       
   }
   
@@ -166,11 +170,12 @@ public class Game extends Application {
    * @return boolean returns a true if the two sprites have collided otherwise false.
    */
 
-  protected boolean handleCollision(Bullet spriteA, SpaceShip spriteB) {
+  protected boolean handleCollision(Bullet bullet, SpaceShip enemy) {
      // if (spriteA != spriteB) {
-          if (spriteA.collide(spriteB)) {
-        	  System.out.println("Collison Occured");
-          }
+          if (bullet.collide(enemy)) {
+        	  bullet.getHit();
+        	  enemy.getHit();
+        	  }
       //}
       
       

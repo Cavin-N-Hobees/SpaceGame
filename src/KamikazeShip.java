@@ -6,6 +6,7 @@ public class KamikazeShip extends SpaceShip{
 		super(shipSprite, x,y,1);
 		this.player = player;
 		super.setMoveForward(true);
+		this.setHitPoints(100);
 	}
 	@Override
 	public void move() {
