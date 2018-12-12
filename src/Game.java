@@ -21,11 +21,13 @@ public class Game extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setFullScreen(true);
+		// adds in the players spaceship and doubles its scale.
 		pane.getChildren().add(spaceship);
 		spaceship.setScaleX(spaceship.getScaleX() * 2);
 		spaceship.setScaleY(spaceship.getScaleY() * 2);
 		moveableObjects.add(spaceship);
 
+		// loop that creates the enemy ships
 		for (int i = 0; i < 10; i++) {
 			KamikazeShip enemyship = new KamikazeShip(new Image("Alien.png"), 100 * (i + 1),
 					pane.heightProperty().floatValue() / 2, spaceship);
@@ -50,13 +52,21 @@ public class Game extends Application {
 		}
 
 		Timeline animation = new Timeline(new KeyFrame(Duration.millis(50), (e -> {
+			// the loop that calls adjust position, adjust position is a method in space object
+			// that moves the all the object relative to the spaceship so that it seems like the
+			// camera is following the player
 			for (SpaceObject spaceObject : moveableObjects) {
 				spaceObject.adjustPosition(spaceship.getXForce(), spaceship.getYForce());
 			}
+			
+			// sets the players x and y coordinates to the middle of the screen, I had
+			// problems with the player going offscreen before I added this.
 			spaceship.setX(pane.getWidth() / 2);
 			spaceship.setY(pane.getHeight() / 2);
 
+			
 			Iterator<MoveableObject> bulletIterator = bulletList.iterator();
+			// loops through and removes any bullets that have exceeded their range
 			while (bulletIterator.hasNext()) {
 				Bullet bullet = (Bullet) bulletIterator.next();
 				if (bullet.getDistance() > 1000) {
@@ -65,7 +75,9 @@ public class Game extends Application {
 					bulletIterator.remove();
 				}
 			}
+			
 			ArrayList<Bullet> bulletsToAdd = new ArrayList();
+			// Loops through and fires any turrents that are ready to fire
 			for (MoveableObject obj : moveableObjects) {
 				obj.move();
 				if (obj instanceof Shooter) {
@@ -79,16 +91,25 @@ public class Game extends Application {
 					}
 				}
 			}
-
+			// Adds any bullets that were added in the last loop into movable objects
+			// adding the bullet while still looping through the list give an error
 			for (Bullet b : bulletsToAdd) {
 				moveableObjects.add(b);
 			}
 
+			// checks for and handles collisions between the players bullets
+			// and the enemy ships.
 			checkCollisions(bulletList, enemyShips);
+			
 			ArrayList<MoveableObject> playersList = new ArrayList();
 			playersList.add(spaceship);
+			// Handles collisions between the player and enemy ships, note that enemy
+			// bullets are also in the enemy ships list because we want to damage the
+			// player whether he gets hit by an enemy ship or an enemy bullet
 			checkCollisions(playersList, enemyShips);
 
+			// if the player is holding spacebar, fire a friendly bullet from the players
+			// spaceship
 			if (playerShoot) {
 				Bullet bullet = spaceship.fireBullet();
 				bulletList.add(bullet);
@@ -97,6 +118,7 @@ public class Game extends Application {
 			}
 
 			Iterator<MoveableObject> objectIterator = moveableObjects.iterator();
+			// Loops through and removes any objects that need to be destroyed
 			while (objectIterator.hasNext()) {
 				MoveableObject temp = objectIterator.next();
 				if (temp.needsDestroyed()) {
@@ -111,6 +133,7 @@ public class Game extends Application {
 
 		})));
 
+		// Handles keys being pressed
 		spaceship.setOnKeyPressed(e -> {
 			switch (e.getCode()) {
 			case DOWN:
@@ -133,6 +156,7 @@ public class Game extends Application {
 			}
 		});
 
+		// Handles keys being released
 		spaceship.setOnKeyReleased((e -> {
 			switch (e.getCode()) {
 			case DOWN:
@@ -154,7 +178,7 @@ public class Game extends Application {
 				System.out.println("Something else was pressed");
 			}
 		}));
-
+		
 		spaceship.setFocusTraversable(true);
 
 		// Create a scene and place it in the stage
@@ -166,20 +190,11 @@ public class Game extends Application {
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.play();
 	}
-
+	
 	protected void checkCollisions(ArrayList<MoveableObject> playerBullets, ArrayList<MoveableObject> enemyShips) {
-		// check other sprite's collisions
-
-		// spriteManager.resetCollisionsToCheck();
-
-		// check each sprite against other sprite objects.
 		for (MoveableObject bullet : playerBullets) {
 			for (MoveableObject enemy : enemyShips) {
 				if (handleCollision(bullet, enemy)) {
-					// The break helps optimize the collisions
-					// The break statement means one object only hits another
-					// object as opposed to one hitting many objects.
-					// To be more accurate comment out the break statement.
 					break;
 				}
 			}
@@ -187,16 +202,6 @@ public class Game extends Application {
 
 	}
 
-	/**
-	 * How to handle the collision of two sprite objects.
-	 *
-	 * @param spriteA
-	 *            Sprite from the first list.
-	 * @param spriteB
-	 *            Sprite from the second list.
-	 * @return boolean returns a true if the two sprites have collided otherwise
-	 *         false.
-	 */
 
 	protected boolean handleCollision(MoveableObject bullet, MoveableObject enemy) {
 		if (bullet.collide(enemy)) {
