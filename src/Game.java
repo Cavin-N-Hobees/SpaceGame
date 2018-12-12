@@ -52,6 +52,8 @@ public class Game extends Application {
             	for (SpaceObject spaceObject: moveableObjects) {
             		spaceObject.adjustPosition(spaceship.getXForce(), spaceship.getYForce());
             	}
+            	spaceship.setX(pane.getWidth() / 2);
+            	spaceship.setY(pane.getHeight() / 2);
             	
         		Iterator<MoveableObject> bulletIterator = bulletList.iterator();
             	while( bulletIterator.hasNext()) {
