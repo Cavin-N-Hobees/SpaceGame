@@ -31,5 +31,10 @@ public abstract class SpaceObject extends ImageView{
 			this.needsDestroyed = true;
 	}
 	
+	public void adjustPosition(double xForce, double yForce) {
+		this.setX(this.getX() - xForce);
+		this.setY(this.getY() - yForce);
+	}
+	
 
 }

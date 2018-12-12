@@ -8,19 +8,5 @@ public class PlayerSpaceship extends SpaceShip{
 	@Override
 	public void move() {
 		super.move();
-		/*if (this.isMoveBackward()) {
-			this.setXForce(Math.cos(((getRotate() - 90) * Math.PI) / 180) * 0.99);
-		    this.setYForce(Math.sin(((getRotate() - 90) * Math.PI) / 180) * 0.99);
-		     //speed -= 0.1;
-		}
-
-
-	     setX(getX() + this.getXForce()); // calculates how far the boat should move on the x-axis
-	     setY(getY() + this.getYForce());
-
-		if (this.isMoveForward()) {
-			this.setXForce(this.getXForce() + Math.cos(((getRotate() - 90) * Math.PI) / 180)); 
-			this.setYForce(this.getYForce() + Math.cos(((getRotate() - 90) * Math.PI) / 180)); 
-		}*/
 	}
 }

@@ -14,7 +14,7 @@ public class Game extends Application {
 	private int timePassed = 0;
 	private Pane pane = new Pane();
 	private ArrayList<MoveableObject> moveableObjects = new ArrayList<>();
-    private PlayerSpaceship spaceship = new PlayerSpaceship(new Image("Spaceship.png"),500,500);
+    private PlayerSpaceship spaceship = new PlayerSpaceship(new Image("Spaceship.png"),1000,700);
     private ArrayList<MoveableObject> enemyShips = new ArrayList<>();
     private ArrayList<MoveableObject> bulletList = new ArrayList<>();
   @Override
@@ -46,9 +46,12 @@ public class Game extends Application {
     pane.getChildren().add(turrent1);
     moveableObjects.add(turrent1);
 	  }
+	  
     Timeline animation = new Timeline(
             new KeyFrame(Duration.millis(50), (e -> {
-            	
+            	for (SpaceObject spaceObject: moveableObjects) {
+            		spaceObject.adjustPosition(spaceship.getXForce(), spaceship.getYForce());
+            	}
             	
         		Iterator<MoveableObject> bulletIterator = bulletList.iterator();
             	while( bulletIterator.hasNext()) {
