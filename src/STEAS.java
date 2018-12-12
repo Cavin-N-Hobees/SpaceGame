@@ -37,6 +37,7 @@ public class STEAS extends SpaceShip {
 
 		super.move();
 	}
+	
 	@Override
 	public void getHit() {
 		this.setHitPoints(this.getHitPoints() - 1);
