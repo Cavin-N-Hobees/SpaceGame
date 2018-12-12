@@ -1,14 +1,19 @@
+import java.util.Random;
+
 import javafx.scene.image.Image;
 
 public class Turrent extends SpaceShip implements Shooter{
 	private PlayerSpaceship player;
 	private STEAS parentShip;
 	private int framesPassed = 0;
+	private int cooldown = 100;
+	private Random random;
 	public Turrent(Image shipSprite,float x, float y, STEAS parentShip) {
 		super(shipSprite, x,y);
 		this.setX(x);
 		this.setY(y);
 		this.parentShip = parentShip;
+		random = new Random();
 	}
 	
 	@Override
@@ -23,8 +28,9 @@ public class Turrent extends SpaceShip implements Shooter{
 	
 	public boolean checkForShoot() {
 		framesPassed++;
-		if (framesPassed > 100) {
+		if (framesPassed > cooldown) {
 			framesPassed = 0;
+			cooldown = random.nextInt(150);
 			return true;
 		}
 		else {

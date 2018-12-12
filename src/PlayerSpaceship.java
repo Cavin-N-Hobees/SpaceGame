@@ -3,11 +3,11 @@ import javafx.scene.image.Image;
 public class PlayerSpaceship extends SpaceShip{
 	public PlayerSpaceship(Image shipSprite,float x, float y) {
 		super(shipSprite,x, y);
+		this.setHitPoints(20);
 	}
 	@Override
 	public void move() {
 		super.move();
-		this.setHitPoints(20);
 		/*if (this.isMoveBackward()) {
 			this.setXForce(Math.cos(((getRotate() - 90) * Math.PI) / 180) * 0.99);
 		    this.setYForce(Math.sin(((getRotate() - 90) * Math.PI) / 180) * 0.99);

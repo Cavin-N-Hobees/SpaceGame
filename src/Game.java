@@ -59,17 +59,23 @@ public class Game extends Application {
 	        			bulletIterator.remove();
 	        		}
 	            }
-            	Iterator<MoveableObject> moveObjectIterator = bulletList.iterator();
+            	ArrayList<Bullet> bulletsToAdd = new ArrayList();
             	for(MoveableObject obj:moveableObjects) {
             		obj.move();
             		if (obj instanceof Shooter) {
             			if(((Shooter) obj).checkForShoot()) {
             				Bullet b = new Bullet(new Image("EnemyBullet.png"),(float) obj.getX(),(float) obj.getY());
+            				b.setRotate(obj.getRotate());
             				pane.getChildren().add(b);
-            				moveableObjects.add(b);
+            				//moveableObjects.add(b);
+            				bulletsToAdd.add(b);
             				enemyShips.add(b);
             			}
             	}}
+            	
+            	for (Bullet b: bulletsToAdd) {
+            		moveableObjects.add(b);
+            	}
             	
             	checkCollisions(bulletList, enemyShips);
             	ArrayList<MoveableObject> playersList = new ArrayList();
