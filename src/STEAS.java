@@ -1,12 +1,16 @@
+import java.util.ArrayList;
+
 import javafx.scene.image.Image;
 
 public class STEAS extends SpaceShip{
 	private SpaceShip player;
+	private ArrayList<Turrent> turrentList = new ArrayList();
 	public STEAS(Image shipSprite,float x, float y, PlayerSpaceship player) {
 		super(shipSprite, x,y,3.1f);
 		super.setMoveForward(true);
 		this.player = player;
 		this.setHitPoints(100);
+		
 	}
 	
 	@Override
@@ -21,9 +25,15 @@ public class STEAS extends SpaceShip{
 		this.setXForce(xMovement);
 		this.setYForce(yMovement);
 		super.move();
+		if(this.needsDestroyed()) {
+			for(Turrent t: turrentList) {
+				t.setNeedsDestroyed(true);
+			}
+		}
 	}
+	
 	public Turrent addTurrent() {
-		return new Turrent(new Image("Turrent.png"), (float) this.getX(),(float) this.getY(),this);
+		return new Turrent(new Image("Turrent.png"), (float) this.getRotationAxis().getX(),(float) this.getRotationAxis().getY(),this);
 	}
 	
 	private double getDist() {

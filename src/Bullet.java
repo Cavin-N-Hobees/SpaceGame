@@ -21,24 +21,7 @@ public class Bullet extends MoveableObject{
 
 	}
 	
-	public boolean collide(MoveableObject other) {
 
-        /*if (collisionBounds == null || other.collisionBounds == null) {
-            return false;
-        }*/
-
-        // determine it's size
-        Circle otherSphere = other.getCollisionBounds();
-        Circle thisSphere = this.getCollisionBounds();
-        Point2D otherCenter = otherSphere.localToScene(otherSphere.getCenterX(), otherSphere.getCenterY());
-        Point2D thisCenter = thisSphere.localToScene(thisSphere.getCenterX(), thisSphere.getCenterY());
-        double dx = otherCenter.getX() - thisCenter.getX();
-        double dy = otherCenter.getY() - thisCenter.getY();
-        double distance = Math.sqrt(dx * dx + dy * dy);
-        double minDist = otherSphere.getRadius() + thisSphere.getRadius();
-
-        return (distance < minDist);
-    }
 	
 	public double getDistance() {
 		

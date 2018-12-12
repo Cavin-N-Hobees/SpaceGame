@@ -13,5 +13,7 @@ public class KamikazeShip extends SpaceShip{
 		//shark.rotation = ((360 / (2 * Math.PI)) * Math.atan2(((BoatY - shark.y)), (BoatX - shark.x))) + 90;
 		this.setRotate(((360 / (2 * Math.PI)) * Math.atan2(((player.getY() - this.getY())), (player.getX() - this.getX()))) + 90);
 		super.move();
+		this.setXForce(this.getXForce() * 0.99f);
+		this.setYForce(this.getXForce() * 0.99f);
 	}
 }

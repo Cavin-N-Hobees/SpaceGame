@@ -1,3 +1,4 @@
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -108,4 +109,23 @@ public class MoveableObject extends SpaceObject{
 		//collisionBounds.setY(this.getY());
 		//collisionBounds.setRotate(this.getRotate());
 	}
+	
+	public boolean collide(MoveableObject other) {
+
+        /*if (collisionBounds == null || other.collisionBounds == null) {
+            return false;
+        }*/
+
+        // determine it's size
+        Circle otherSphere = other.getCollisionBounds();
+        Circle thisSphere = this.getCollisionBounds();
+        Point2D otherCenter = otherSphere.localToScene(otherSphere.getCenterX(), otherSphere.getCenterY());
+        Point2D thisCenter = thisSphere.localToScene(thisSphere.getCenterX(), thisSphere.getCenterY());
+        double dx = otherCenter.getX() - thisCenter.getX();
+        double dy = otherCenter.getY() - thisCenter.getY();
+        double distance = Math.sqrt(dx * dx + dy * dy);
+        double minDist = otherSphere.getRadius() + thisSphere.getRadius();
+
+        return (distance < minDist);
+    }
 	}

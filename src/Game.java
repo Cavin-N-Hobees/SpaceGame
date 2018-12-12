@@ -14,25 +14,28 @@ public class Game extends Application {
 	private int timePassed = 0;
 	private Pane pane = new Pane();
 	private ArrayList<MoveableObject> moveableObjects = new ArrayList<>();
-    private PlayerSpaceship spaceship = new PlayerSpaceship(new Image("Spaceship.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2);
-    private KamikazeShip enemyship = new KamikazeShip(new Image("Alien.png"),(pane.widthProperty().floatValue() / 2),pane.heightProperty().floatValue() / 2, spaceship);
-    private ArrayList<SpaceShip> enemyShips = new ArrayList<>();
-    private ArrayList<Bullet> bulletList = new ArrayList<>();
-    
+    private PlayerSpaceship spaceship = new PlayerSpaceship(new Image("Spaceship.png"),500,500);
+    private ArrayList<MoveableObject> enemyShips = new ArrayList<>();
+    private ArrayList<MoveableObject> bulletList = new ArrayList<>();
   @Override
-  public void start(Stage primaryStage) {     
-   moveableObjects.add(spaceship);
+  public void start(Stage primaryStage) { 
+	  primaryStage.setFullScreen(true);
+	  pane.getChildren().add(spaceship);
+	  spaceship.setScaleX(spaceship.getScaleX() * 2);
+	  spaceship.setScaleY(spaceship.getScaleY() * 2);
+	  moveableObjects.add(spaceship);
+	  
+	  
+	  for(int i =0; i < 10; i++) {
+		  KamikazeShip enemyship = new KamikazeShip(new Image("Alien.png"),100 * (i + 1),pane.heightProperty().floatValue() / 2, spaceship);
     enemyShips.add(enemyship);
-    pane.getChildren().add(spaceship);
-    spaceship.setScaleX(spaceship.getScaleX() * 2);
-    spaceship.setScaleY(spaceship.getScaleY() * 2);
     moveableObjects.add(enemyship);
     pane.getChildren().add(enemyship);
     enemyship.setScaleX(enemyship.getScaleX() * 2);
     enemyship.setScaleY(enemyship.getScaleY() * 2);
     enemyShips.add(enemyship);
     
-    STEAS bigShip = new STEAS(new Image("STEAS(1).png"),10,10,spaceship);
+    STEAS bigShip = new STEAS(new Image("STEAS(1).png"),100 * (i + 1),10,spaceship);
     enemyShips.add(bigShip);
     pane.getChildren().add(bigShip);
     moveableObjects.add(bigShip);
@@ -42,24 +45,36 @@ public class Game extends Application {
     enemyShips.add(turrent1);
     pane.getChildren().add(turrent1);
     moveableObjects.add(turrent1);
-    
+	  }
     Timeline animation = new Timeline(
             new KeyFrame(Duration.millis(50), (e -> {
             	
-        		Iterator<Bullet> bulletIterator = bulletList.iterator();
+            	
+        		Iterator<MoveableObject> bulletIterator = bulletList.iterator();
             	while( bulletIterator.hasNext()) {
-            		Bullet bullet = bulletIterator.next();
+            		Bullet bullet = (Bullet) bulletIterator.next();
 	            	if(bullet.getDistance() > 1000) {
 	        			pane.getChildren().remove(bullet);
 	        			moveableObjects.remove(bullet);
 	        			bulletIterator.remove();
 	        		}
 	            }
+            	Iterator<MoveableObject> moveObjectIterator = bulletList.iterator();
             	for(MoveableObject obj:moveableObjects) {
             		obj.move();
-            	}
+            		if (obj instanceof Shooter) {
+            			if(((Shooter) obj).checkForShoot()) {
+            				Bullet b = new Bullet(new Image("EnemyBullet.png"),(float) obj.getX(),(float) obj.getY());
+            				pane.getChildren().add(b);
+            				moveableObjects.add(b);
+            				enemyShips.add(b);
+            			}
+            	}}
             	
             	checkCollisions(bulletList, enemyShips);
+            	ArrayList<MoveableObject> playersList = new ArrayList();
+            	playersList.add(spaceship);
+            	checkCollisions(playersList, enemyShips);
             	
             	if (playerShoot) {
             		Bullet bullet = spaceship.fireBullet();
@@ -73,7 +88,7 @@ public class Game extends Application {
               		MoveableObject temp = objectIterator.next();
               		if(temp.needsDestroyed()) {
               			pane.getChildren().remove(temp);
-              			moveableObjects.remove(temp);
+              			objectIterator.remove();
               			if(bulletList.contains(temp))
               				bulletList.remove(temp);
               			if(enemyShips.contains(temp))
@@ -96,14 +111,6 @@ public class Game extends Application {
         	spaceship.setMoveRight(true);break;
         case SPACE:
         	playerShoot = true;
-        	/*
-        	if(bulletList.size() < 100) {
-        	Bullet bullet = spaceship.fireBullet();
-        	pane.getChildren().add(bullet);
-        	moveableObjects.add(bullet);
-        	bulletList.add(bullet);
-        	}*/
-        	
         	break;
         default: 
         	System.out.println("Something else was pressed");
@@ -131,7 +138,7 @@ public class Game extends Application {
     spaceship.setFocusTraversable(true);
     
     // Create a scene and place it in the stage
-    Scene scene = new Scene(pane, 200, 200);
+    Scene scene = new Scene(pane, 5000, 5000);
     primaryStage.setTitle("Test2"); // Set the stage title
     primaryStage.setScene(scene); // Place the scene in the stage
     primaryStage.show(); // Display the stage
@@ -141,14 +148,14 @@ public class Game extends Application {
   }
   
   
-  protected void checkCollisions(ArrayList<Bullet> playerBullets, ArrayList<SpaceShip> enemyShips) {
+  protected void checkCollisions(ArrayList<MoveableObject> playerBullets, ArrayList<MoveableObject> enemyShips) {
       // check other sprite's collisions
       
 	  //spriteManager.resetCollisionsToCheck();
       
 	  // check each sprite against other sprite objects.
-      for (Bullet bullet : playerBullets) {
-          for (SpaceShip enemy : enemyShips) {
+      for (MoveableObject bullet : playerBullets) {
+          for (MoveableObject enemy : enemyShips) {
               if   (handleCollision(bullet, enemy)) {
                   // The break helps optimize the collisions
                   //  The break statement means one object only hits another
@@ -170,15 +177,11 @@ public class Game extends Application {
    * @return boolean returns a true if the two sprites have collided otherwise false.
    */
 
-  protected boolean handleCollision(Bullet bullet, SpaceShip enemy) {
-     // if (spriteA != spriteB) {
-          if (bullet.collide(enemy)) {
-        	  bullet.getHit();
-        	  enemy.getHit();
+  protected boolean handleCollision(MoveableObject bullet, MoveableObject enemy) {
+	  if (bullet.collide(enemy)) {
+		  bullet.getHit();
+		  enemy.getHit();
         	  }
-      //}
-      
-      
 
       return false;
   }

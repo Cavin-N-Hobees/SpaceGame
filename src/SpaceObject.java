@@ -1,10 +1,11 @@
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 
 public abstract class SpaceObject extends ImageView{
 	private boolean needsDestroyed = false;
-	private int hitPoints = 1;
+	private int hitPoints = 0;
 	
 	public SpaceObject(Image shipSprite,float x, float y) {
 		super(shipSprite);
@@ -29,4 +30,6 @@ public abstract class SpaceObject extends ImageView{
 		if(this.hitPoints < 0)
 			this.needsDestroyed = true;
 	}
+	
+
 }
