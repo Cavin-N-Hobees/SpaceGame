@@ -36,14 +36,20 @@ public class STEAS extends SpaceShip {
 		}
 
 		super.move();
-		if (this.needsDestroyed()) {
-			for (Turrent t : turrentList) {
-				t.setNeedsDestroyed(true);
-			}
-		}
 	}
-
-	public Turrent addTurrent() {
+	@Override
+	public void getHit() {
+		this.setHitPoints(this.getHitPoints() - 1);
+		if (this.getHitPoints() < 0)
+			this.setNeedsDestroyed(true);
+		if(this.needsDestroyed()) {
+		for (Turrent t : turrentList) {
+			t.setNeedsDestroyed(true);
+		}
+		}
+		
+	}
+	public Turrent getTurrent() {
 		return new Turrent(new Image("Turrent.png"), (float) this.getRotationAxis().getX(),
 				(float) this.getRotationAxis().getY(), this);
 	}

@@ -16,7 +16,7 @@ public class Game extends Application {
 	private ArrayList<MoveableObject> moveableObjects = new ArrayList<>();
 	private PlayerSpaceship spaceship = new PlayerSpaceship(new Image("Spaceship.png"), 1000, 700);
 	private ArrayList<MoveableObject> enemyShips = new ArrayList<>();
-	private ArrayList<MoveableObject> bulletList = new ArrayList<>();
+	private ArrayList<MoveableObject> bulletList = new ArrayList<>(); 
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -41,11 +41,12 @@ public class Game extends Application {
 			pane.getChildren().add(bigShip);
 			moveableObjects.add(bigShip);
 
-			Turrent turrent1 = bigShip.addTurrent();
+			Turrent turrent1 = bigShip.getTurrent();
 			turrent1.setPlayer(spaceship);
 			enemyShips.add(turrent1);
 			pane.getChildren().add(turrent1);
 			moveableObjects.add(turrent1);
+			bigShip.addTurrent(turrent1);
 		}
 
 		Timeline animation = new Timeline(new KeyFrame(Duration.millis(50), (e -> {

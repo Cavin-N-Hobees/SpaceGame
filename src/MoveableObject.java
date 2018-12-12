@@ -80,6 +80,9 @@ public class MoveableObject extends SpaceObject{
 		collisionBounds.setCenterX(x);
 		collisionBounds.setCenterY(y);
 	}
+	public void setCollisionBoundSize(float size) {
+		collisionBounds.setRadius(size);
+	}
 	public void move() {
 		if (moveBackward) {
 			xForce = Math.cos(((getRotate() - 90) * Math.PI) / 180) * 0.99;
