@@ -14,7 +14,7 @@ public class STEAS extends SpaceShip {
 		this.player = player;
 		this.setHitPoints(100);
 		Random random = new Random();
-		speed = random.nextInt(10) / 5;
+		speed = random.nextInt(10);
 	}
 
 	@Override
@@ -34,7 +34,6 @@ public class STEAS extends SpaceShip {
 			this.setXForce(xMovement);
 			this.setYForce(yMovement);
 		}
-
 		super.move();
 	}
 	
