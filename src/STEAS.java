@@ -18,15 +18,16 @@ public class STEAS extends SpaceShip{
 	
 	@Override
 	public void move() {
-		if(getDist() > 500) {
+		if(getDist() > 400) {
 		this.setRotate(((360 / (2 * Math.PI)) * Math.atan2(((player.getY() - this.getY())), (player.getX() - this.getX()))) + 90);
 		}else {
 			this.setRotate(((360 / (2 * Math.PI)) * Math.atan2(((player.getY() - this.getY())), (player.getX() - this.getX()))) + 180);
+			double xMovement = Math.cos(((getRotate() - 90) * Math.PI) / 180) * speed; 
+		    double yMovement = Math.sin(((getRotate() - 90) * Math.PI) / 180) * speed; 
+			this.setXForce(xMovement);
+			this.setYForce(yMovement);
 		}
-		double xMovement = Math.cos(((getRotate() - 90) * Math.PI) / 180) * speed; 
-	    double yMovement = Math.sin(((getRotate() - 90) * Math.PI) / 180) * speed; 
-		this.setXForce(xMovement);
-		this.setYForce(yMovement);
+		
 		super.move();
 		if(this.needsDestroyed()) {
 			for(Turrent t: turrentList) {
